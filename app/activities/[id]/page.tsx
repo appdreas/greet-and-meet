@@ -4,6 +4,7 @@ import JoinActivity from "@/components/JoinActivity";
 import getActivity from "@/app/actions/getActivity";
 import { formatDate, formatTime } from "@/lib/formatters";
 import Link from "next/link";
+import AttendeesList from "@/components/AttendeesList";
 
 export default async function Page({
   params,
@@ -19,7 +20,7 @@ export default async function Page({
 
   return (
     <>
-      <Link href="/activities" className="flex items-center mt-2  ">
+      <Link href="/activities" className="flex items-center mt-2 ">
         <ChevronLeftIcon className="text-muted-foreground" />
         <h2 className="text-sm text-muted-foreground">Back</h2>
       </Link>
@@ -49,31 +50,7 @@ export default async function Page({
           </div>
           <JoinActivity />
         </div>
-        <div className="mt-8">
-          <h3 className="text-xl font-semibold mb-4">Attendees</h3>
-          <ul className="space-y-4">
-            {activity.attendees.map((attendee) => (
-              <li
-                key={attendee.$id}
-                className="flex items-center justify-between"
-              >
-                <div>
-                  <p className="font-medium">{attendee.user_id}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {attendee.message}
-                  </p>
-                </div>
-                <Badge
-                  variant={
-                    attendee.status === "Accepted" ? "default" : "secondary"
-                  }
-                >
-                  {attendee.status}
-                </Badge>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <AttendeesList activity={activity} />
       </div>
     </>
   );

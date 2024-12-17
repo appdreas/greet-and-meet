@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,21 +12,32 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useActionState, useEffect } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/authContext";
+import createUser from "@/app/actions/auth/createUser";
 
 export default function SignUp() {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { toast } = useToast();
   const router = useRouter();
+  const [state, formAction] = useActionState(createUser, null);
+  const { setIsAuthenticated } = useAuth();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    // Here you would typically handle the sign-up logic
-    console.log("Sign up attempt with:", { fullName, email, password });
-    // For now, we'll just redirect to the home page
-    router.push("/");
-  };
-
+  useEffect(() => {
+    if (state?.error) {
+      toast({
+        variant: "destructive",
+        title: state.error,
+      });
+    }
+    if (state?.success) {
+      toast({
+        title: "Success! Let's sign in!",
+      });
+      router.push("/sign-in");
+    }
+  }, [state, toast, router, setIsAuthenticated]);
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
@@ -36,16 +45,15 @@ export default function SignUp() {
         <CardDescription>Create a new account</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit}>
+        <form action={formAction}>
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="fullName">Full Name</Label>
+              <Label htmlFor="name">Name</Label>
               <Input
-                id="fullName"
-                placeholder="Enter your full name"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                required
+                id="name"
+                placeholder="Enter your name"
+                name="name"
+                defaultValue={state?.fieldData?.name}
               />
             </div>
             <div className="space-y-2">
@@ -53,10 +61,9 @@ export default function SignUp() {
               <Input
                 id="email"
                 type="email"
+                name="email"
                 placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
+                defaultValue={state?.fieldData?.email}
               />
             </div>
             <div className="space-y-2">
@@ -65,9 +72,8 @@ export default function SignUp() {
                 id="password"
                 type="password"
                 placeholder="Create a password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
+                name="password"
+                defaultValue={state?.fieldData?.password}
               />
             </div>
           </div>
@@ -79,7 +85,7 @@ export default function SignUp() {
       <CardFooter className="flex justify-center">
         <p>
           {`Already have an account? `}
-          <Link href="/sign-in" className="text-primary hover:underline">
+          <Link href="/sign-in" className="text-blue-500 hover:underline">
             Sign In
           </Link>
         </p>

@@ -10,6 +10,10 @@ async function createSession(previousState: unknown, formData: FormData) {
     return {
       success: false,
       error: "Please fill in all fields",
+      fieldData: {
+        email,
+        password,
+      },
     };
   }
 
@@ -32,6 +36,10 @@ async function createSession(previousState: unknown, formData: FormData) {
     return {
       success: false,
       error: "Email and password does not match",
+      fieldData: {
+        email,
+        password,
+      },
     };
   }
 }

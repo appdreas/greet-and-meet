@@ -33,6 +33,9 @@ export default function SignIn() {
     }
     if (state?.success) {
       setIsAuthenticated(true);
+      toast({
+        title: "Successfully signed in!",
+      });
       router.push("/activities");
     }
   }, [state, toast, router, setIsAuthenticated]);
@@ -55,6 +58,7 @@ export default function SignIn() {
                 type="email"
                 name="email"
                 placeholder="Enter your email"
+                defaultValue={state?.fieldData?.email}
               />
             </div>
             <div className="space-y-2">
@@ -64,6 +68,7 @@ export default function SignIn() {
                 type="password"
                 placeholder="Enter your password"
                 name="password"
+                defaultValue={state?.fieldData?.password}
               />
             </div>
           </div>
@@ -75,7 +80,7 @@ export default function SignIn() {
       <CardFooter className="flex justify-center">
         <p>
           {`Don't have an account? `}
-          <Link href="/sign-up" className="text-primary hover:underline">
+          <Link href="/sign-up" className="text-blue-500 hover:underline">
             Sign Up
           </Link>
         </p>

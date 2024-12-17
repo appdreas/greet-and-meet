@@ -17,6 +17,7 @@ import ActivityCard from "./ActivityCard";
 
 import { Activity } from "@/config/types";
 import { DateRange } from "react-day-picker";
+import Link from "next/link";
 
 interface Filters {
   type: string;
@@ -102,9 +103,9 @@ export default function ActivityList({
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {activities.map((activity) => (
-            <div key={activity.$id}>
+            <Link key={activity.$id} href={`/activities/${activity.$id}`}>
               <ActivityCard key={activity.$id} activity={activity} />
-            </div>
+            </Link>
           ))}
         </div>
       )}

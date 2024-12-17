@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -16,28 +15,26 @@ export default function ActivityCard({ activity }: { activity: Activity }) {
   const formattedTime = formatTime(activity.activity_date);
 
   return (
-    <Link href={`/activities/${activity.$id}`}>
-      <Card className="h-full transition-shadow hover:shadow-lg">
-        <CardHeader>
-          <CardTitle>{activity.title}</CardTitle>
-          <CardDescription>{activity.short_description}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Badge className="mb-2">RUN</Badge>
-          <div className="flex items-center text-sm text-muted-foreground mb-1">
-            <CalendarIcon className="mr-2 h-4 w-4" />
-            {formattedDate} at {formattedTime}
-          </div>
-          <div className="flex items-center text-sm text-muted-foreground mb-1">
-            <MapPinIcon className="mr-2 h-4 w-4" />
-            Stockholm (12 km)
-          </div>
-          <div className="flex items-center text-sm text-muted-foreground mb-1">
-            <Users className="mr-2 h-4 w-4" />
-            {activity.attendees?.length} attending
-          </div>
-        </CardContent>
-      </Card>
-    </Link>
+    <Card className="h-full transition-shadow hover:shadow-lg">
+      <CardHeader>
+        <CardTitle>{activity.title}</CardTitle>
+        <CardDescription>{activity.short_description}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Badge className="mb-2">RUN</Badge>
+        <div className="flex items-center text-sm text-muted-foreground mb-1">
+          <CalendarIcon className="mr-2 h-4 w-4" />
+          {formattedDate} at {formattedTime}
+        </div>
+        <div className="flex items-center text-sm text-muted-foreground mb-1">
+          <MapPinIcon className="mr-2 h-4 w-4" />
+          Stockholm (12 km)
+        </div>
+        <div className="flex items-center text-sm text-muted-foreground mb-1">
+          <Users className="mr-2 h-4 w-4" />
+          {activity.attendees?.length} attending
+        </div>
+      </CardContent>
+    </Card>
   );
 }
