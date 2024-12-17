@@ -10,20 +10,27 @@ type ActivityType =
   | "Cycling"
   | "Gym";
 
+type Status = "Pending" | "Accepted" | "Rejected";
+
 export interface Activity extends Models.Document {
-  activity_id: string;
   title: string;
   description: string;
   short_description: string;
-  activity_date: Date;
+  activity_date: string;
   location: Location;
   type: ActivityType;
   user_id: string;
+  attendees: Attendee[];
 }
 
 export interface Location extends Models.Document {
-  location_id: string;
   latitute: string;
   longitude: string;
   activities: Activity[];
+}
+
+export interface Attendee extends Models.Document {
+  user_id: string;
+  message: string;
+  status: Status;
 }
