@@ -34,3 +34,9 @@ export interface Attendee extends Models.Document {
   message: string;
   status: Status;
 }
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+}

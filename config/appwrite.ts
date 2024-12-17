@@ -1,5 +1,7 @@
 import { Client, Databases, Account, Storage } from "node-appwrite";
 
+export const SESSION_COOKIE = "appwrite-session";
+
 const createAdminClient = async () => {
   const client = new Client()
     .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
