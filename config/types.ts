@@ -10,12 +10,11 @@ type ActivityType =
   | "Cycling"
   | "Gym";
 
-type Status = "Pending" | "Accepted" | "Rejected";
+export type Status = "Pending" | "Accepted" | "Rejected";
 
 export interface Activity extends Models.Document {
   title: string;
   description: string;
-  short_description: string;
   activity_date: string;
   location: Location;
   type: ActivityType;
@@ -33,6 +32,7 @@ export interface Attendee extends Models.Document {
   user_id: string;
   message: string;
   status: Status;
+  activityId: Activity;
 }
 
 export interface User {

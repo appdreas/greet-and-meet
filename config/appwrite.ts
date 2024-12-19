@@ -1,4 +1,4 @@
-import { Client, Databases, Account, Storage } from "node-appwrite";
+import { Client, Databases, Account, Storage, Users } from "node-appwrite";
 
 export const SESSION_COOKIE = "appwrite-session";
 
@@ -17,6 +17,9 @@ const createAdminClient = async () => {
     },
     get storage() {
       return new Storage(client);
+    },
+    get users() {
+      return new Users(client);
     },
   };
 };

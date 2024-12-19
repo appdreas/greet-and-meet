@@ -10,11 +10,12 @@ export default function Navbar() {
   const router = useRouter();
   const { toast } = useToast();
 
-  const { isAuthenticated, setIsAuthenticated } = useAuth();
+  const { isAuthenticated, setIsAuthenticated, setUser } = useAuth();
 
   const handleSignOut = async () => {
     const { success, error } = await deleteSession();
     if (success) {
+      setUser(undefined);
       setIsAuthenticated(false);
       router.push("/");
     } else {
@@ -42,17 +43,12 @@ export default function Navbar() {
             </div>
             <div className="flex items-center">
               <Button variant="ghost" className="text-primary" asChild>
-                <Link href="/user/activity">My activities</Link>
+                <Link href="/activities/user">My activities</Link>
               </Button>
             </div>
             <div className="flex items-center">
               <Button variant="ghost" className="text-primary" asChild>
                 <Link href="/attending">Attending</Link>
-              </Button>
-            </div>
-            <div className="flex items-center">
-              <Button variant="ghost" className="text-primary" asChild>
-                <Link href="/activities/create">Create activity</Link>
               </Button>
             </div>
           </div>

@@ -2,12 +2,11 @@
 
 import { createAdminClient } from "@/config/appwrite";
 import { Activity } from "@/config/types";
-//import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 async function getActivity(id: string) {
   try {
-    const { databases } = await createAdminClient();
+    const { databases, users } = await createAdminClient();
 
     const activity: Activity = await databases.getDocument(
       process.env.NEXT_PUBLIC_APPWRITE_DATABASE!,
@@ -15,10 +14,16 @@ async function getActivity(id: string) {
       id
     );
 
-    //TODO
-    //revalidatePath("/", "layout");
+    const user = await users.get(activity.user_id);
 
-    return activity;
+    const allUsers = await users.list();
+
+    const attendees = activity.attendees.map((attendee) => ({
+      ...attendee,
+      name: allUsers.users.find((u) => u.$id === attendee.user_id)?.name,
+    }));
+
+    return { ...activity, attendees, name: user.name };
   } catch (error) {
     console.error(error);
     redirect("/error");

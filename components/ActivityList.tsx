@@ -66,7 +66,6 @@ export default function ActivityList({
                   <SelectItem value="Sports">Sports</SelectItem>
                   <SelectItem value="Arts">Arts</SelectItem>
                   <SelectItem value="Music">Music</SelectItem>
-                  <SelectItem value="Technology">Technology</SelectItem>
                 </SelectContent>
               </Select>
             </div>

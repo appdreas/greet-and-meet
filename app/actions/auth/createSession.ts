@@ -1,6 +1,7 @@
 "use server";
 import { createAdminClient, SESSION_COOKIE } from "@/config/appwrite";
 import { cookies } from "next/headers";
+import checkAuthentication from "./checkAuthentication";
 
 async function createSession(previousState: unknown, formData: FormData) {
   const email = formData.get("email") as string;
@@ -28,8 +29,10 @@ async function createSession(previousState: unknown, formData: FormData) {
       expires: new Date((await session).expire),
       path: "/",
     });
+    const { user } = await checkAuthentication();
     return {
       success: true,
+      user,
     };
   } catch (error) {
     console.log("auth error", error);

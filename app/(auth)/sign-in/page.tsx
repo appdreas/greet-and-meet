@@ -22,7 +22,8 @@ export default function SignIn() {
   const { toast } = useToast();
   const router = useRouter();
   const [state, formAction] = useActionState(createSession, null);
-  const { setIsAuthenticated } = useAuth();
+
+  const { setIsAuthenticated, setUser } = useAuth();
 
   useEffect(() => {
     if (state?.error) {
@@ -32,13 +33,14 @@ export default function SignIn() {
       });
     }
     if (state?.success) {
+      setUser(state.user);
       setIsAuthenticated(true);
       toast({
         title: "Successfully signed in!",
       });
       router.push("/activities");
     }
-  }, [state, toast, router, setIsAuthenticated]);
+  }, [state, toast, router]);
 
   return (
     <Card className="w-full max-w-md">

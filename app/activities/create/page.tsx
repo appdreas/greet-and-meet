@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,39 +20,28 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { useToast } from "@/hooks/use-toast";
+import createActivity from "@/app/actions/createActivity";
 
 export default function CreateActivity() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [type, setType] = useState("");
-  const [date, setDate] = useState<Date>();
-  const [time, setTime] = useState("");
-  const [location, setLocation] = useState("");
+  const { toast } = useToast();
   const router = useRouter();
+  const [state, formAction] = useActionState(createActivity, null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    // Here you would typically handle the activity creation logic
-    console.log("Create activity attempt with:", {
-      title,
-      description,
-      type,
-      date,
-      time,
-      location,
-    });
-    // For now, we'll just redirect to the home page
-    router.push("/");
-  };
+  useEffect(() => {
+    if (state?.error) {
+      toast({
+        variant: "destructive",
+        title: state.error,
+      });
+    }
+    if (state?.success) {
+      toast({
+        title: "Successfully created new activity!",
+      });
+      router.push("/activities/user");
+    }
+  }, [state, toast, router]);
 
   return (
     <div className="flex items-center justify-center mt-8">
@@ -64,16 +53,15 @@ export default function CreateActivity() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit}>
+          <form action={formAction}>
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="title">Title</Label>
                 <Input
                   id="title"
                   placeholder="Enter activity title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  required
+                  name="title"
+                  defaultValue={state?.fieldData?.title}
                 />
               </div>
               <div className="space-y-2">
@@ -81,58 +69,33 @@ export default function CreateActivity() {
                 <Textarea
                   id="description"
                   placeholder="Describe your activity"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  required
+                  name="description"
+                  defaultValue={state?.fieldData?.description}
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="type">Activity Type</Label>
-                <Select onValueChange={setType} required>
+                <Select name="type">
                   <SelectTrigger id="type">
-                    <SelectValue placeholder="Select activity type" />
+                    <SelectValue
+                      placeholder="Select activity type"
+                      defaultValue={state?.fieldData?.type}
+                    />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="Sports">Sports</SelectItem>
                     <SelectItem value="Arts">Arts</SelectItem>
                     <SelectItem value="Music">Music</SelectItem>
-                    <SelectItem value="Technology">Technology</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label>Date</Label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-full justify-start text-left font-normal",
-                        !date && "text-muted-foreground"
-                      )}
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {date ? format(date, "PPP") : <span>Pick a date</span>}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0">
-                    <Calendar
-                      mode="single"
-                      selected={date}
-                      onSelect={setDate}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="time">Time</Label>
+                <Label htmlFor="datetime">Date</Label>
                 <Input
-                  id="time"
-                  type="time"
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                  required
+                  id="datetime"
+                  type="datetime-local"
+                  name="datetime"
+                  defaultValue={state?.fieldData?.datetime}
                 />
               </div>
               <div className="space-y-2">
@@ -140,9 +103,7 @@ export default function CreateActivity() {
                 <Input
                   id="location"
                   placeholder="Enter activity location"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  required
+                  name="location"
                 />
               </div>
             </div>

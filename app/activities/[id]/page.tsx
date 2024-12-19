@@ -3,8 +3,8 @@ import { CalendarIcon, ChevronLeftIcon, MapPinIcon, Users } from "lucide-react";
 import JoinActivity from "@/components/JoinActivity";
 import getActivity from "@/app/actions/getActivity";
 import { formatDate, formatTime } from "@/lib/formatters";
-import Link from "next/link";
 import AttendeesList from "@/components/AttendeesList";
+import PreviousPageButton from "@/components/PreviousPageButton";
 
 export default async function Page({
   params,
@@ -18,12 +18,20 @@ export default async function Page({
   const formattedDate = formatDate(activity.activity_date);
   const formattedTime = formatTime(activity.activity_date);
 
+  const acceptedAttendees = activity.attendees.filter(
+    (attendee) => attendee.status === "Accepted"
+  );
+
+  const pendingAttendees = activity.attendees.filter(
+    (attendee) => attendee.status === "Pending"
+  );
+
   return (
     <>
-      <Link href="/activities" className="flex items-center mt-2 ">
+      <PreviousPageButton className="flex items-center mt-2">
         <ChevronLeftIcon className="text-muted-foreground" />
         <h2 className="text-sm text-muted-foreground">Back</h2>
-      </Link>
+      </PreviousPageButton>
       <div className="py-6">
         <h2 className="text-3xl font-bold text-primary mb-2">
           {activity.title}
@@ -33,7 +41,7 @@ export default async function Page({
         </h2>
         <div className="space-y-4">
           <div className="text-sm text-muted-foreground">
-            Created by: {activity.user_id}
+            Created by: {activity.name}
           </div>
           <Badge>{activity.type}</Badge>
           <div className="flex items-center text-sm text-muted-foreground">
@@ -46,11 +54,14 @@ export default async function Page({
           </div>
           <div className="flex items-center text-sm text-muted-foreground">
             <Users className="mr-2 h-4 w-4" />
-            {activity.attendees.length} attending
+            {acceptedAttendees.length} attending ({pendingAttendees.length}{" "}
+            pending)
           </div>
-          <JoinActivity />
+          <JoinActivity activity={activity} />
         </div>
-        <AttendeesList activity={activity} />
+        <AttendeesList activity={activity} status="Pending" />
+        <AttendeesList activity={activity} status="Accepted" />
+        <AttendeesList activity={activity} status="Rejected" />
       </div>
     </>
   );

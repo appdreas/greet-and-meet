@@ -18,10 +18,10 @@ export default function ActivityCard({ activity }: { activity: Activity }) {
     <Card className="h-full transition-shadow hover:shadow-lg">
       <CardHeader>
         <CardTitle>{activity.title}</CardTitle>
-        <CardDescription>{activity.short_description}</CardDescription>
+        <CardDescription>{activity.description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <Badge className="mb-2">RUN</Badge>
+        <Badge className="mb-2">{activity.type}</Badge>
         <div className="flex items-center text-sm text-muted-foreground mb-1">
           <CalendarIcon className="mr-2 h-4 w-4" />
           {formattedDate} at {formattedTime}
