@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 //import { Label } from "@/components/ui/label";
 import { Select, SelectTrigger, SelectValue } from "@/components/ui/select";
 //import { Slider } from "@/components/ui/slider";
-import { DatePickerWithRange } from "./DatePickerWithRange";
 import ActivityCard from "./ActivityCard";
 
 import { Activity, DateRange } from "@/config/types";
@@ -21,7 +20,7 @@ export default function ActivityList({
   activities: Activity[];
   showFilter?: boolean;
 }) {
-  const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
+  const [dateRange] = useState<DateRange | undefined>(undefined);
 
   //const [maxDistance, setMaxDistance] = useState(0);
   const [state, formAction] = useActionState(
@@ -47,12 +46,12 @@ export default function ActivityList({
                   <ActivityPicker />
                 </Select>
               </div>
-              <div className="w-full sm:w-auto">
+              {/* <div className="w-full sm:w-auto">
                 <DatePickerWithRange
                   date={dateRange}
                   setDate={(range) => setDateRange(range)}
                 />
-              </div>
+              </div> */}
               {/* <div className="w-full sm:w-auto self-start">
                 <Label>Max Distance: {maxDistance} km</Label>
                 <Slider
