@@ -21,7 +21,7 @@ async function getUserActivities() {
     const response = await databases.listDocuments(
       process.env.NEXT_PUBLIC_APPWRITE_DATABASE!,
       process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ACTIVITIES!,
-      [Query.equal("user_id", userId)]
+      [Query.equal("user_id", userId), Query.orderAsc("activity_date")]
     );
 
     const activities = response.documents as Activity[];

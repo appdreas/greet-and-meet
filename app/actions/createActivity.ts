@@ -4,6 +4,7 @@ import { createAdminClient } from "@/config/appwrite";
 import checkAuthentication from "./auth/checkAuthentication";
 import { ID } from "node-appwrite";
 import { MarkerType } from "@/components/SetMarkerOnMap";
+import { revalidatePath } from "next/cache";
 
 async function createActivity(
   previousState: unknown,
@@ -50,6 +51,8 @@ async function createActivity(
         },
       }
     );
+    revalidatePath("/", "layout");
+    revalidatePath("/activities", "layout");
     return {
       success: true,
       newActivity,
