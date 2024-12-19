@@ -23,9 +23,9 @@ export interface Activity extends Models.Document {
 }
 
 export interface Location extends Models.Document {
-  latitute: string;
-  longitude: string;
-  activities: Activity[];
+  latitute: number;
+  longitude: number;
+  activity: Activity;
 }
 
 export interface Attendee extends Models.Document {

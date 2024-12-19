@@ -7,11 +7,6 @@ import { toast } from "@/hooks/use-toast";
 import { MouseEvent } from "react";
 
 export default function ActionButtons({ activity }: { activity: Activity }) {
-  const handleEdit = (e: MouseEvent, id: string) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log(id);
-  };
   const handleDelete = async (e: MouseEvent, id: string) => {
     e.preventDefault();
     e.stopPropagation();
@@ -30,9 +25,6 @@ export default function ActionButtons({ activity }: { activity: Activity }) {
   };
   return (
     <div className="flex items-center justify-end space-x-2 p-6 md:w-1/4">
-      <Button variant="outline" onClick={(e) => handleEdit(e, activity.id)}>
-        Edit
-      </Button>
       <Button
         variant="destructive"
         onClick={(e) => handleDelete(e, activity.$id)}

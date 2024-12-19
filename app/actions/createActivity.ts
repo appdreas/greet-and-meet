@@ -3,8 +3,13 @@
 import { createAdminClient } from "@/config/appwrite";
 import checkAuthentication from "./auth/checkAuthentication";
 import { ID } from "node-appwrite";
+import { MarkerType } from "@/components/SetMarkerOnMap";
 
-async function createActivity(previousState: unknown, formData: FormData) {
+async function createActivity(
+  previousState: unknown,
+  formData: FormData,
+  newMarker: MarkerType
+) {
   const { databases } = await createAdminClient();
 
   const title = formData.get("title") as string;
@@ -25,7 +30,6 @@ async function createActivity(previousState: unknown, formData: FormData) {
           description,
           type,
           datetime,
-          location,
         },
       };
     }
@@ -40,6 +44,10 @@ async function createActivity(previousState: unknown, formData: FormData) {
         description,
         type,
         activity_date: datetime,
+        location: newMarker != null && {
+          latitude: newMarker?.latitude,
+          longitude: newMarker?.latitude,
+        },
       }
     );
     return {

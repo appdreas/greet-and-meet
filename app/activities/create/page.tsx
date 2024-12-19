@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,11 +22,17 @@ import {
 } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import createActivity from "@/app/actions/createActivity";
+import SetMarkerOnMap, { MarkerType } from "@/components/SetMarkerOnMap";
 
 export default function CreateActivity() {
   const { toast } = useToast();
   const router = useRouter();
-  const [state, formAction] = useActionState(createActivity, null);
+  const [newMarker, setNewMarker] = useState<MarkerType>(null);
+  const [state, formAction] = useActionState(
+    (state: unknown, formData: FormData) =>
+      createActivity(state, formData, newMarker),
+    null
+  );
 
   useEffect(() => {
     if (state?.error) {
@@ -100,10 +106,9 @@ export default function CreateActivity() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="location">Location</Label>
-                <Input
-                  id="location"
-                  placeholder="Enter activity location"
-                  name="location"
+                <SetMarkerOnMap
+                  newMarker={newMarker}
+                  setNewMarker={setNewMarker}
                 />
               </div>
             </div>
