@@ -6,13 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   Card,
   CardContent,
@@ -23,6 +17,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import createActivity from "@/app/actions/createActivity";
 import SetMarkerOnMap, { MarkerType } from "@/components/SetMarkerOnMap";
+import ActivityPicker from "@/components/ActivityPicker";
 
 export default function CreateActivity() {
   const { toast } = useToast();
@@ -88,11 +83,7 @@ export default function CreateActivity() {
                       defaultValue={state?.fieldData?.type}
                     />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Sports">Sports</SelectItem>
-                    <SelectItem value="Arts">Arts</SelectItem>
-                    <SelectItem value="Music">Music</SelectItem>
-                  </SelectContent>
+                  <ActivityPicker />
                 </Select>
               </div>
               <div className="space-y-2">

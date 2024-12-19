@@ -1,14 +1,17 @@
 import { type Models } from "appwrite";
 
-type ActivityType =
-  | "Sports"
-  | "Arts"
-  | "Music"
-  | "Games"
-  | "Walking"
-  | "Running"
-  | "Cycling"
-  | "Gym";
+export const activityTypes = [
+  "Sports",
+  "Arts",
+  "Music",
+  "Games",
+  "Walking",
+  "Running",
+  "Cycling",
+  "Gym",
+] as const;
+
+export type ActivityType = (typeof activityTypes)[number];
 
 export type Status = "Pending" | "Accepted" | "Rejected";
 
