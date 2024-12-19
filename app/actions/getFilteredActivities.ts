@@ -1,12 +1,11 @@
 "use server";
 
 import { createAdminClient } from "@/config/appwrite";
-import { Activity } from "@/config/types";
+import { Activity, DateRange } from "@/config/types";
 import { revalidatePath } from "next/cache";
 //import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Query } from "node-appwrite";
-import { DateRange } from "react-day-picker";
 
 async function getFilteredActivities(
   previousState: unknown,

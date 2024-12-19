@@ -43,3 +43,8 @@ export interface User {
   name: string;
   email: string;
 }
+
+export type DateRange = {
+  from: Date | undefined;
+  to?: Date | undefined;
+};

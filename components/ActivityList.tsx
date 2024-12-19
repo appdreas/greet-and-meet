@@ -9,8 +9,7 @@ import { Select, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DatePickerWithRange } from "./DatePickerWithRange";
 import ActivityCard from "./ActivityCard";
 
-import { Activity } from "@/config/types";
-import { DateRange } from "react-day-picker";
+import { Activity, DateRange } from "@/config/types";
 import Link from "next/link";
 import getFilteredActivities from "@/app/actions/getFilteredActivities";
 import ActivityPicker from "./ActivityPicker";
