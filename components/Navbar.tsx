@@ -1,10 +1,10 @@
 "use client";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
 import deleteSession from "@/app/actions/auth/deleteSession";
-import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/authContext";
+import { useToast } from "@/hooks/use-toast";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const router = useRouter();
@@ -27,7 +27,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-background border-b">
+    <nav className="bg-emerald-50 border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
