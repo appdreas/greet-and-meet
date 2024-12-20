@@ -26,7 +26,7 @@ export interface Activity extends Models.Document {
 }
 
 export interface Location extends Models.Document {
-  latitute: number;
+  latitude: number;
   longitude: number;
   activity: Activity;
 }

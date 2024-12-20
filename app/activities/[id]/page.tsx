@@ -1,12 +1,12 @@
-import { Badge } from "@/components/ui/badge";
-import { CalendarIcon, ChevronLeftIcon, Users } from "lucide-react";
-import JoinActivity from "@/components/JoinActivity";
 import getActivity from "@/app/actions/getActivity";
-import { formatDate, formatTime } from "@/lib/formatters";
 import AttendeesList from "@/components/AttendeesList";
-import PreviousPageButton from "@/components/PreviousPageButton";
-import MapLocation from "@/components/MapLocation";
 import ClosestCity from "@/components/ClosestCity";
+import JoinActivity from "@/components/JoinActivity";
+import MapLocation from "@/components/MapLocation";
+import PreviousPageButton from "@/components/PreviousPageButton";
+import { Badge } from "@/components/ui/badge";
+import { formatDate, formatTime } from "@/lib/formatters";
+import { CalendarIcon, ChevronLeftIcon, Users } from "lucide-react";
 
 export default async function Page({
   params,

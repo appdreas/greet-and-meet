@@ -10,10 +10,12 @@ async function getActivities(query: string) {
   try {
     const { databases } = await createAdminClient();
 
+    const currentDate = new Date().toISOString()
+
     const response = await databases.listDocuments(
       process.env.NEXT_PUBLIC_APPWRITE_DATABASE!,
       process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ACTIVITIES!,
-      [query, Query.orderAsc("activity_date")]
+      [query, Query.greaterThanEqual("activity_date", currentDate), Query.orderAsc("activity_date")]
     );
 
     const activities = response.documents as Activity[];

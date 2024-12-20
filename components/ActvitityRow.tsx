@@ -1,9 +1,10 @@
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Activity } from "@/config/types";
 import { formatDate, formatTime } from "@/lib/formatters";
-import ActionButtons from "./ActionButtons";
 import { formatDistanceToNowStrict, isAfter } from "date-fns";
+import ActionButtons from "./ActionButtons";
+import ClosestCity from "./ClosestCity";
 
 export default function ActivityRow({
   activity,
@@ -39,9 +40,7 @@ export default function ActivityRow({
         <div className="flex items-center lg:col-span-1 col-span-2 pl-6 lg:pl-0">
           <Badge>{activity.type}</Badge>
         </div>
-        <div className="flex items-center col-span-2 pl-6 lg:pl-0">
-          <p>Stockholm (12 km)</p>
-        </div>
+        <ClosestCity activity={activity} />
         <div className="flex items-start lg:items-center lg:col-span-1 col-span-2 pl-6 lg:pl-0">
           {activity.attendees ? (
             <p>{activity.attendees.length} attending</p>

@@ -1,10 +1,10 @@
 "use server";
 
-import { createAdminClient } from "@/config/appwrite";
-import checkAuthentication from "./auth/checkAuthentication";
-import { ID } from "node-appwrite";
 import { MarkerType } from "@/components/SetMarkerOnMap";
+import { createAdminClient } from "@/config/appwrite";
 import { revalidatePath } from "next/cache";
+import { ID } from "node-appwrite";
+import checkAuthentication from "./auth/checkAuthentication";
 
 async function createActivity(
   previousState: unknown,
@@ -47,7 +47,7 @@ async function createActivity(
         activity_date: datetime,
         location: newMarker != null && {
           latitude: newMarker?.latitude,
-          longitude: newMarker?.latitude,
+          longitude: newMarker?.longitude,
         },
       }
     );

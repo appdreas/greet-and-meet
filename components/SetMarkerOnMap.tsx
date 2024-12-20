@@ -36,6 +36,7 @@ export default function SetMarkerOnMap({
             longitude={newMarker.longitude}
             color="red"
             anchor="bottom"
+            offset={[0, 10]}
           ></Marker>
         )}
       </Map>
