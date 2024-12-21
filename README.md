@@ -27,16 +27,32 @@ Sign in to the application: https://greet-and-meet.vercel.app/sign-in
 ### Feed
 Navigate to https://greet-and-meet.vercel.app/activities to view all upcoming activities. You can filter by activity type. More filter types to come, such as date range, and maximum distance and location. (Date range picker was implemented but removed due to React 19 peer dependency error while building the application)
 
+![feed](https://github.com/user-attachments/assets/607d4ff5-268a-406e-b5a4-b716b9082d2a)
+
 ### Activity details
 Navigate to https://greet-and-meet.vercel.app/activities/[activityId] to view details for an activity and send a **greeting** to request to join an activity. If you are the creator for the activity you can view all pending request and change status for the attendees to either Accepted, Rejected or back to Pending. 
+
+![activity details](https://github.com/user-attachments/assets/5a3a7dd8-5c6c-4e9b-a586-06fc3972398c)
+
+![greeting](https://github.com/user-attachments/assets/42a2113f-d969-4fd8-94c3-f0c1bed56190)
+
+![change status](https://github.com/user-attachments/assets/b8fc4878-e929-4b10-a13e-ea238dc9b051)
+
 
 ### Attending activities
 Navigate to https://greet-and-meet.vercel.app/attending to see the activities that you are attending or have been attending. You can see if your status has been updated to accepted or rejected and you can see the time until an activity starts. 
 
+![attending](https://github.com/user-attachments/assets/3ae85cad-7be9-47a4-b71d-11d5de9ab24f)
+
 ### My activities
 Navigate to https://greet-and-meet.vercel.app/activities/user to see your activities, both upcoming and past. You can delete upcoming activities that you have created. 
+
+![my activities](https://github.com/user-attachments/assets/f7b8022b-665c-40fb-b009-c26b308a3589)
+
 #### Create activity
 At the top right you can create an activity. Fill in the required information, type, datetime and place a marker on the map to set the activity location. 
+
+![create activity](https://github.com/user-attachments/assets/a6634508-9c8d-455c-b5bb-a305976740a6)
 
 ## Todo 
 * [ ] Send notification using **appwrite** to activity creator if user sends greeting to join. 
