@@ -16,6 +16,8 @@ https://greet-and-meet.vercel.app/
 ### Landing page
 Navigate to https://greet-and-meet.vercel.app/. Here you can see the next three upcoming activities and click the activity cards for more details. You need to sign in to see the full activity feed. 
 
+![landing](https://github.com/user-attachments/assets/d645d52e-1891-4cdc-939b-aa7c096b5142)
+
 ### Sign up
 Sign up to the application: https://greet-and-meet.vercel.app/sign-up
 
